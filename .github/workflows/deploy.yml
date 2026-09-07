@@ -10,7 +10,7 @@ permissions:
   pages: write
   id-token: write
 
-# Let an in-flight deploy finish rather than cancelling it half-published.
+# Let an in-flight deploy finish than cancelling it half-published.
 concurrency:
   group: pages
   cancel-in-progress: false
