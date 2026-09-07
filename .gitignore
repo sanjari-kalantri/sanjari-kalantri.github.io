@@ -1,0 +1,7 @@
+# Build output — GitHub Actions regenerates this on every push.
+build/
+
+# The phone number and anything else you keep out of the public repo.
+secrets.local.yml
+
+__pycache__/

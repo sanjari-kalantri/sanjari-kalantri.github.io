@@ -1,0 +1,277 @@
+# ---------------------------------------------------------------------------
+# This is the only file you need to edit.
+#
+#   profile:  your name and affiliation — used by both outputs
+#   site:     the landing page (index.html)
+#   cv:       the detailed CV (compiled to PDF with LaTeX)
+#
+# Write plain text. Special characters (%, &, _, #, ~) are escaped for you.
+# Three bits of inline formatting work everywhere:
+#
+#   **bold**        *italic*        [link text](https://example.com)
+#
+# Anything with `enabled: false` is skipped in both outputs — a tidy way to
+# park an entry you might want back later without deleting it.
+# Run `python3 build.py` to see your changes.
+# ---------------------------------------------------------------------------
+
+profile:
+  name: Sanjari Kalantri
+  # Shown under the photo on the landing page, one line per list item.
+  affiliation:
+    - DPhil (PhD) Candidate in Economics
+    - Nuffield College
+    - University of Oxford
+
+
+# ============================================================ landing page ===
+
+site:
+  photo: assets/pic.jpg
+  # One sentence for Google results and link previews.
+  description: >-
+    Sanjari Kalantri — DPhil (PhD) candidate in Economics at Oxford.
+    Microeconomic theory, information economics.
+
+  # Optional extra lines under the affiliation in the sidebar.
+  # Delete the `enabled: false` lines to show them.
+  contact:
+    - label: Email
+      value: sanjari.kalantri@economics.ox.ac.uk
+      url: mailto:sanjari.kalantri@economics.ox.ac.uk
+      enabled: false
+    - label: CV
+      value: PDF
+      url: cv.pdf
+      enabled: false
+
+  sections:
+    - heading: Welcome
+      kind: text
+      paragraphs:
+        - >-
+          I am a microeconomic theorist with a focus on information economics.
+          I am currently a DPhil (PhD) candidate in Economics at Oxford.
+          I will be on the 2026-27 job market.
+        - Here is my [CV](cv.pdf).
+        - "Email: [sanjari.kalantri@economics.ox.ac.uk](mailto:sanjari.kalantri@economics.ox.ac.uk)"
+
+    - heading: Research
+      kind: papers
+      papers:
+        - title: Information Provision with Intertemporal Externalities
+          tag: Job Market Paper
+          # Shows a "Paper" link. Set enabled: false until the PDF exists.
+          paper:
+            enabled: true
+            url: assets/jmp.pdf
+          # Shows an "Abstract" toggle that expands `text` on the page.
+          # Give it a url instead and it becomes a plain link to that file.
+          abstract:
+            enabled: true
+            url:
+            text: >-
+              I analyse a dynamic model of persuasion in which a long-lived sender
+              provides information about an evolving state to a sequence of
+              short-lived receivers who make binary decisions in the presence of
+              intertemporal externalities. I allow for conflicts of interest
+              between the sender and receivers, both in the stage-game and via the
+              dynamics of the externalities. I characterize the optimal persuasion
+              for a variety of parametric cases, depending on the strength and
+              direction of the externalities. The most interesting results relate
+              to the case in which the sender is biased towards an action in the
+              stage game, whose externalities make it harder to persuade future
+              decision-makers to take the same action. In this case, when there are
+              extremely strong externalities, there could be a complete reversal of
+              the sender's disclosure policy compared to the stage-game.
+
+    - heading: Work in Progress
+      kind: papers
+      papers:
+        - title: Dynamic Cheap-Talk with Endogenous States
+          paper:
+            enabled: false
+            url:
+          abstract:
+            enabled: true
+            url:
+            text: >-
+              I analyse a dynamic cheap-talk model in which a long-lived sender
+              provides information about an evolving state to a sequence of
+              short-lived receivers making binary decisions. States evolve
+              endogenously based on the action taken by the receiver. I also assume
+              that there are no conflicts of interest between the sender and the
+              receivers in the stage-game. While a non-informative equilibrium
+              always exists, full revelation is an equilibrium in the stage-game
+              too. I then characterize the equilibria in the dynamic game,
+              depending on the strength and direction of the externalities. In the
+              dynamic game, under moderate externalities, partially revealing
+              equilibria may exist, but the non-informative equilibrium is the
+              unique equilibrium when the externalities are too strong.
+
+        - title: Moral Hazard with Yaari Preferences
+          authors: with Guru Ganeson and Gus Smith
+          paper:
+            enabled: false
+            url:
+          abstract:
+            enabled: true
+            url:
+            text: >-
+              In standard principal-agent models, a risk-neutral principal designs
+              a wage schedule as a function of output (which is observable) to
+              incentivise a risk-averse agent to exert high effort (which is
+              unobservable). In our setup, the agent has Yaari preferences, i.e.,
+              she applies a probability distortion function to the output
+              probabilities, rather than a utility function to the wages. In the
+              binary action case, we show that simple bonus contracts are optimal.
+              We also do comparative statics with respect to various parameters:
+              the minimum wage, agent's reservation wage, degree of risk aversion
+              of the agent, and the informativeness of the signal (output).
+
+
+# ============================================================== detailed CV ===
+
+cv:
+  # Output file name: build/cv.tex -> cv.pdf, linked from the landing page.
+  filename: cv
+  # Uncomment to print a grey "Last updated in ..." in the top right corner.
+  # last_updated: September 2026
+
+  # The centred line under your name on page 1.
+  # The phone number lives in a GitHub secret (RESUME_PHONE) so it is not in this
+  # public repo — see the README. Set `enabled: false` to drop it entirely.
+  contact:
+    - label: Email
+      value: sanjari.kalantri@nuffield.ox.ac.uk
+      url: mailto:sanjari.kalantri@nuffield.ox.ac.uk
+    - label: Phone
+      value: "${RESUME_PHONE}"
+      url: "tel:${RESUME_PHONE}"
+
+  sections:
+    # kind: dated   -> entries with a date in the right-hand column
+    # kind: blocks  -> full-width paragraphs, each with an optional bold label
+    # kind: references -> a table of referees
+
+    - heading: Education
+      kind: dated
+      entries:
+        - date: "2022---"
+          title: University of Oxford
+          title_rest: ", Nuffield College"
+          lines:
+            - DPhil, Economics
+        - date: 2020-2022
+          title: University of Oxford
+          title_rest: ", Kellogg College"
+          lines:
+            - MPhil, Economics, with *Distinction*
+        - date: 2017-2020
+          title: University of Delhi
+          title_rest: ", Lady Shri Ram College for Women"
+          lines:
+            - "BA(Hons.), Economics, GPA: 9.37/10"
+
+    - heading: Research
+      kind: blocks
+      blocks:
+        - label: Fields
+          text: Microeconomic Theory; Information Economics
+        - label: Working Papers
+          items:
+            - Dynamic Cheap-Talk with Endogenous States
+            - Information Provision with Endogenous States
+            - Moral Hazard with Yaari Preferences
+
+    - heading: Presentations
+      kind: dated
+      entries:
+        - date: 2025
+          text: >-
+            Student Theory Workshop, Department of Economics, University of
+            Oxford; HEC Paris Economics PhD Conference; ISI (Delhi) Conference
+            on Economic Growth and Development
+        - date: 2024
+          text: Student Theory Workshop, Department of Economics, University of Oxford
+        - date: 2020
+          text: South Asian Economics Students' Meet, sponsored by the World Bank, Kathmandu
+
+    - heading: Teaching Experience
+      kind: dated
+      entries:
+        - date: "2024---"
+          title: Stipendiary Lecturer
+          title_rest: ", University College, University of Oxford"
+          items:
+            - PPE, Introductory & Core Microeconomics
+            - PPE, Mathematics for Introductory Economics
+        - date: 2022-2024
+          title: Graduate Teaching Assistant
+          title_rest: ", Department of Economics, University of Oxford"
+          items:
+            - PPE, Introductory & Core Microeconomics
+            - PPE, Introductory Macroeconomics
+            - PPE, Introductory Probability & Statistics
+            - PPE, Mathematics for Introductory Economics
+
+    - heading: Prizes
+      kind: dated
+      entries:
+        - date: 2025
+          title: Department of Economics DPhil Bursary
+          title_rest: ", University of Oxford"
+          lines:
+            - Stipend to support living expenses during the DPhil in Economics
+        - date: 2022
+          title: Nuffield College & Department of Economics Scholarship
+          title_rest: ", University of Oxford"
+          lines:
+            - Tuition waiver & stipend to read for the DPhil in Economics
+        - date: 2020
+          title: Dr Saroj Gupta Memorial Scholarship
+          title_rest: ", Lady Shri Ram College for Women"
+          lines:
+            - Tuition sponsorship awarded for academic excellence in the third year
+        - date: 2020
+          title: Academic Prize
+          title_rest: ", Lady Shri Ram College for Women"
+          lines:
+            - Awarded for best exam performance in the second year
+        - date: 2019
+          title: Academic Prize
+          title_rest: ", Lady Shri Ram College for Women"
+          lines:
+            - Awarded for best exam performance in the first year
+        - date: 2018
+          title: Dr Saroj Gupta Memorial Scholarship
+          title_rest: ", Lady Shri Ram College for Women"
+          lines:
+            - Tuition sponsorship awarded for academic excellence in the first year
+
+    - heading: Other
+      kind: blocks
+      blocks:
+        - label: Languages
+          text: Hindi (native), English (fluent)
+        - label: Programming
+          text: >-
+            LaTeX (advanced), MS Excel (advanced), MATLAB (intermediate),
+            STATA (intermediate), Mathematica (beginner)
+        - label: Nationality
+          text: United States of America
+
+    # Ask your referees before publishing their contact details.
+    # Delete the `enabled: false` line to include this section.
+    - heading: References
+      kind: references
+      enabled: false
+      people:
+        - name: Inés Moreno de Barreda
+          title: Associate Professor of Economics
+          affiliation: University of Oxford
+          email: ines.morenodebarreda@economics.ox.ac.uk
+        - name: Daniel Quigley
+          title: Associate Professor of Economics
+          affiliation: University of Oxford
+          email: daniel.quigley@economics.ox.ac.uk
