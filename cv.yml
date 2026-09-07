@@ -63,7 +63,7 @@ site:
           tag: Job Market Paper
           # Shows a "Paper" link. Set enabled: false until the PDF exists.
           paper:
-            enabled: true
+            enabled: false
             url: assets/jmp.pdf
           # Shows an "Abstract" toggle that expands `text` on the page.
           # Give it a url instead and it becomes a plain link to that file.
