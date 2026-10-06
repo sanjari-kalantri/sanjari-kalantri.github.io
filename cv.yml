@@ -78,12 +78,11 @@ site:
               between the sender and receivers, both in the stage-game and via the
               dynamics of the externalities. I characterize the optimal persuasion
               for a variety of parametric cases, depending on the strength and
-              direction of the externalities. The most interesting results relate
-              to the case in which the sender is biased towards an action in the
-              stage game, whose externalities make it harder to persuade future
-              decision-makers to take the same action. In this case, when there are
-              extremely strong externalities, there could be a complete reversal of
-              the sender's disclosure policy compared to the stage-game.
+              direction of the externalities. In the case in which the sender is biased towards an
+              action in the stage game whose externalities make it harder to
+              persuade future decision-makers to take the same action, extremely
+              strong externalities can lead to a complete reversal of the sender's
+              disclosure policy compared to the stage-game.
 
     - heading: Work in Progress
       kind: papers
