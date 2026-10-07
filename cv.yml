@@ -147,6 +147,7 @@ cv:
     - label: Phone
       value: "${RESUME_PHONE}"
       url: "tel:${RESUME_PHONE}"
+      enabled: false
 
   sections:
     # kind: dated   -> entries with a date in the right-hand column
@@ -177,15 +178,22 @@ cv:
       blocks:
         - label: Fields
           text: Microeconomic Theory; Information Economics
+        - label: Job Market Paper
+          text: Information Provision with Intertemporal Externalities
         - label: Working Papers
           items:
             - Dynamic Cheap-Talk with Endogenous States
-            - Information Provision with Endogenous States
             - Moral Hazard with Yaari Preferences
 
     - heading: Presentations
       kind: dated
       entries:
+        - date: 2026
+          text: >-
+            Student Theory Workshop, Department of Economics, University of
+            Oxford; Nuffield Postdoctoral Fellows' Seminar; Berlin PhD Conference
+            in Economics; Tor Vergata PhD Conference in Economics (*scheduled*);
+            EWMES 2026 (*scheduled*)
         - date: 2025
           text: >-
             Student Theory Workshop, Department of Economics, University of
@@ -199,7 +207,7 @@ cv:
     - heading: Teaching Experience
       kind: dated
       entries:
-        - date: "2024---"
+        - date: 2024-2026
           title: Stipendiary Lecturer
           title_rest: ", University College, University of Oxford"
           items:
@@ -217,6 +225,11 @@ cv:
     - heading: Prizes
       kind: dated
       entries:
+        - date: 2026
+          title: Department of Economics DPhil Bursary
+          title_rest: ", University of Oxford"
+          lines:
+            - Stipend to support living expenses during the DPhil in Economics
         - date: 2025
           title: Department of Economics DPhil Bursary
           title_rest: ", University of Oxford"
@@ -258,7 +271,7 @@ cv:
             LaTeX (advanced), MS Excel (advanced), MATLAB (intermediate),
             STATA (intermediate), Mathematica (beginner)
         - label: Nationality
-          text: United States of America
+          text: United States of America; Indian OCI cardholder
 
     # Ask your referees before publishing their contact details.
     # Delete the `enabled: false` line to include this section.
