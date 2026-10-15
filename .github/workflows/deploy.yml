@@ -27,23 +27,17 @@ jobs:
 
       - run: pip install pyyaml
 
-      - name: Generate index.html and cv.tex from cv.yml
+      - name: Generate index.html from cv.yml
         env:
           RESUME_PHONE: ${{ secrets.RESUME_PHONE }}
         run: python3 build.py
 
-      - name: Compile the CV
-        uses: xu-cheng/latex-action@v3
-        with:
-          working_directory: build
-          root_file: cv.tex
-          latexmk_use_xelatex: false
-
+      # The CV is the committed cv.pdf, not built from cv.yml's `cv:` section.
       - name: Assemble the site
         run: |
           mkdir -p site
           cp build/index.html site/
-          cp build/cv.pdf site/
+          cp cv.pdf site/
           # Photo, papers, anything else linked from the page.
           [ -d build/assets ] && cp -r build/assets site/
           touch site/.nojekyll

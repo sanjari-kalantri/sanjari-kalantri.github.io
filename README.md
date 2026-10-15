@@ -5,7 +5,7 @@ Personal website and CV. Both are generated from **one file: `cv.yml`**.
 | You edit | It becomes |
 | --- | --- |
 | `cv.yml` → `site:` | `index.html`, the landing page |
-| `cv.yml` → `cv:`   | `cv.pdf`, the detailed CV (LaTeX) |
+| `cv.pdf` (committed) | the detailed CV, published as-is |
 | `cv.yml` → `profile:` | the name and affiliation used by both |
 
 Everything else is layout you can leave alone: `preamble.tex` (LaTeX styling),
@@ -50,7 +50,8 @@ Anything you want to link goes in `assets/`:
 
 The paths in `cv.yml` are relative to the repo root, so a paper dropped at
 `assets/jmp.pdf` is linked as `url: assets/jmp.pdf`. The CV itself is always at
-`cv.pdf`, since it is built rather than committed.
+`cv.pdf`: to update it, replace `cv.pdf` in the repo root and push. (The `cv:`
+section of `cv.yml` and `preamble.tex` are no longer used by the deploy.)
 
 ## Papers on the landing page
 
