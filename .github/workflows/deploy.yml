@@ -36,7 +36,7 @@ jobs:
       - name: Assemble the site
         run: |
           mkdir -p site
-          cp build/index.html site/
+          cp build/index.html build/robots.txt build/sitemap.xml site/
           cp cv.pdf site/
           # Photo, papers, anything else linked from the page.
           [ -d build/assets ] && cp -r build/assets site/
