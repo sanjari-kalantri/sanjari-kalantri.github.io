@@ -27,11 +27,44 @@ profile:
 # ============================================================ landing page ===
 
 site:
+  # The live address. Used for the canonical link, sitemap.xml, robots.txt and
+  # Google's structured data, so keep the trailing slash.
+  url: https://sanjari-kalantri.github.io/
+  # Google Search Console > Add property > URL prefix > HTML tag: paste only the
+  # content="..." value here. Leave empty to omit the tag.
+  google_site_verification:
   photo: assets/pic.jpg
   # One sentence for Google results and link previews.
   description: >-
     Sanjari Kalantri — DPhil (PhD) candidate in Economics at Oxford.
     Microeconomic theory, information economics.
+
+  # Facts about you for Google's profile-page structured data (schema.org
+  # ProfilePage / Person). Not shown on the page itself.
+  person:
+    job_title: DPhil (PhD) Candidate in Economics
+    email: sanjari.kalantri@economics.ox.ac.uk
+    affiliation:
+      - name: Nuffield College, University of Oxford
+        url: https://www.nuffield.ox.ac.uk/
+      - name: Department of Economics, University of Oxford
+        url: https://www.economics.ox.ac.uk/
+    alumni_of:
+      - name: University of Oxford
+        url: https://www.ox.ac.uk/
+      - name: Lady Shri Ram College for Women, University of Delhi
+        url: https://lsr.edu.in/
+    knows_about:
+      - Microeconomic Theory
+      - Information Economics
+      - Bayesian Persuasion
+      - Game Theory
+    knows_language:
+      - English
+      - Hindi
+    # Other profiles of yours (Google Scholar, LinkedIn, ORCID, SSRN, ...).
+    # Google uses these to tie them to this page.
+    same_as: []
 
   # Optional extra lines under the affiliation in the sidebar.
   # Delete the `enabled: false` lines to show them.

@@ -11,7 +11,9 @@ layout. Write plain text in cv.yml — this script handles LaTeX escaping
 """
 
 import argparse
+import datetime
 import html
+import json
 import shutil
 import os
 import pathlib
@@ -609,7 +611,74 @@ def html_paper(p):
     return out
 
 
-def build_html(data):
+def absolute(site, path):
+    """Site-relative path -> full URL, as crawlers and link previews need."""
+    if re.match(r"[a-z]+:|//", str(path)):
+        return str(path)
+    return site["url"].rstrip("/") + "/" + str(path).lstrip("/")
+
+
+def org(o):
+    return {"@type": "Organization", "name": o["name"], **({"url": o["url"]} if o.get("url") else {})}
+
+
+def json_ld(profile, site, desc, today):
+    """schema.org ProfilePage with the Person as mainEntity, for Google's
+    profile-page rich results: https://developers.google.com/search/docs/appearance/structured-data/profile-page
+    """
+    person_cfg = site.get("person") or {}
+    url = site["url"]
+    first, _, last = profile["name"].rpartition(" ")
+    person = {
+        "@type": "Person",
+        "@id": url + "#person",
+        "name": profile["name"],
+        "givenName": first or profile["name"],
+        "familyName": last if first else None,
+        "url": url,
+        "image": absolute(site, site["photo"]) if site.get("photo") else None,
+        "description": desc,
+        "jobTitle": person_cfg.get("job_title"),
+        "email": f"mailto:{person_cfg['email']}" if person_cfg.get("email") else None,
+        "affiliation": [org(o) for o in person_cfg.get("affiliation") or []] or None,
+        "alumniOf": [org(o) for o in person_cfg.get("alumni_of") or []] or None,
+        "knowsAbout": person_cfg.get("knows_about") or None,
+        "knowsLanguage": person_cfg.get("knows_language") or None,
+        "sameAs": person_cfg.get("same_as") or None,
+    }
+    page = {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "@id": url,
+        "url": url,
+        "name": profile["name"],
+        "description": desc,
+        "inLanguage": "en",
+        "dateModified": today,
+        "mainEntity": {k: v for k, v in person.items() if v is not None},
+    }
+    # Pretty-printed, and "</" escaped so no string can close the <script> early.
+    return json.dumps(page, indent=2, ensure_ascii=False).replace("</", "<\\/")
+
+
+def build_robots(site):
+    return f"User-agent: *\nAllow: /\n\nSitemap: {absolute(site, 'sitemap.xml')}\n"
+
+
+def build_sitemap(site, today):
+    pages = [site["url"], absolute(site, "cv.pdf")]
+    urls = "".join(
+        f"  <url>\n    <loc>{esc(p)}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n"
+        for p in pages
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}</urlset>\n"
+    )
+
+
+def build_html(data, today):
     profile, site = data["profile"], data["site"]
     body = []
     for section in enabled(site.get("sections")):
@@ -632,6 +701,35 @@ def build_html(data):
     desc = site.get("description") or profile["name"]
     sidebar = "\n".join(html_sidebar(profile, site))
 
+    first, _, last = profile["name"].rpartition(" ")
+    meta = [
+        f'<link rel="canonical" href="{esc(site["url"])}">',
+        '<meta name="robots" content="index, follow">',
+        f'<meta name="author" content="{esc(profile["name"])}">',
+    ]
+    if site.get("google_site_verification"):
+        meta.append(
+            f'<meta name="google-site-verification" '
+            f'content="{esc(site["google_site_verification"])}">'
+        )
+    meta += [
+        f'<meta property="og:title" content="{esc(profile["name"])}">',
+        f'<meta property="og:description" content="{esc(desc)}">',
+        '<meta property="og:type" content="profile">',
+        f'<meta property="og:url" content="{esc(site["url"])}">',
+        f'<meta property="og:site_name" content="{esc(profile["name"])}">',
+    ]
+    if first:
+        meta.append(f'<meta property="profile:first_name" content="{esc(first)}">')
+        meta.append(f'<meta property="profile:last_name" content="{esc(last)}">')
+    if site.get("photo"):
+        image = absolute(site, site["photo"])
+        meta.append(f'<meta property="og:image" content="{esc(image)}">')
+        meta.append(f'<meta property="og:image:alt" content="{esc(profile["name"])}">')
+    meta.append('<meta name="twitter:card" content="summary">')
+    head_meta = "\n  ".join(meta)
+    ld = json_ld(profile, site, desc, today).replace("\n", "\n  ")
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -639,9 +737,10 @@ def build_html(data):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{esc(profile["name"])}</title>
   <meta name="description" content="{esc(desc)}">
-  <meta property="og:title" content="{esc(profile["name"])}">
-  <meta property="og:description" content="{esc(desc)}">
-  <meta property="og:type" content="profile">
+  {head_meta}
+  <script type="application/ld+json">
+  {ld}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
@@ -677,16 +776,21 @@ def build_html(data):
 def main():
     argparse.ArgumentParser(description=__doc__).parse_args()
     data = load()
+    if not data["site"].get("url"):
+        sys.exit("cv.yml is missing site.url (e.g. https://you.github.io/).")
     OUT.mkdir(exist_ok=True)
     stem = data["cv"].get("filename", "cv")
+    today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
     (OUT / f"{stem}.tex").write_text(build_tex(data), encoding="utf-8")
-    (OUT / "index.html").write_text(build_html(data), encoding="utf-8")
+    (OUT / "index.html").write_text(build_html(data, today), encoding="utf-8")
+    (OUT / "robots.txt").write_text(build_robots(data["site"]), encoding="utf-8")
+    (OUT / "sitemap.xml").write_text(build_sitemap(data["site"], today), encoding="utf-8")
     # \input{preamble} resolves relative to the .tex, so it has to sit alongside it.
     shutil.copy(ROOT / "preamble.tex", OUT / "preamble.tex")
     # Mirror assets/ so build/index.html previews locally exactly as it deploys.
     if (ROOT / "assets").is_dir():
         shutil.copytree(ROOT / "assets", OUT / "assets", dirs_exist_ok=True)
-    print(f"Built build/{stem}.tex and build/index.html")
+    print(f"Built build/{stem}.tex, build/index.html, build/robots.txt and build/sitemap.xml")
 
     # A missing photo or paper is a broken image / 404 on the live site, and you
     # only notice after it is published. Say so now instead.
