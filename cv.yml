@@ -29,7 +29,7 @@ profile:
 site:
   # The live address. Used for the canonical link, sitemap.xml, robots.txt and
   # Google's structured data, so keep the trailing slash.
-  url: https://sanjari-kalantri.github.io/
+  url: https://sanjari.kalantri.net/
   # Google Search Console > Add property > URL prefix > HTML tag: paste only the
   # content="..." value here. Leave empty to omit the tag.
   google_site_verification:
@@ -64,7 +64,8 @@ site:
       - Hindi
     # Other profiles of yours (Google Scholar, LinkedIn, ORCID, SSRN, ...).
     # Google uses these to tie them to this page.
-    same_as: []
+    same_as:
+      - https://www.linkedin.com/in/sanjari-kalantri-720782168/
 
   # Optional extra lines under the affiliation in the sidebar.
   # Delete the `enabled: false` lines to show them.
