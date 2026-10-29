@@ -454,6 +454,10 @@ CSS = """
       color: #111;
     }
 
+    .paper-title a {
+      color: inherit;
+    }
+
     .paper-tag {
       font-size: 0.82rem;
       color: #8B0000;
@@ -572,19 +576,25 @@ def on(block):
 
 
 def html_paper(p):
-    out = ['      <div class="paper">']
-    title = f'<span class="paper-title">{ihtml(p["title"])}</span>'
-    if p.get("tag"):
-        title += f'<span class="paper-tag">&ensp;({esc(p["tag"])})</span>'
-    out.append(f"        {title}")
-    if p.get("authors"):
-        out.append(f'        <div class="paper-authors">{ihtml(p["authors"])}</div>')
-
     paper, abstract = p.get("paper"), p.get("abstract")
     # The abstract needs a url to link to or text to expand; enabled alone
     # would render a control that does nothing.
     show_paper = on(paper) and paper.get("url")
     show_abstract = on(abstract) and (abstract.get("url") or abstract.get("text"))
+
+    out = ['      <div class="paper">']
+    title = ihtml(p["title"])
+    # With a PDF to show, the title itself opens it as well as the "Paper" link.
+    if show_paper:
+        title = (
+            f'<a href="{esc(paper["url"])}" target="_blank" rel="noopener">{title}</a>'
+        )
+    title = f'<span class="paper-title">{title}</span>'
+    if p.get("tag"):
+        title += f'<span class="paper-tag">&ensp;({esc(p["tag"])})</span>'
+    out.append(f"        {title}")
+    if p.get("authors"):
+        out.append(f'        <div class="paper-authors">{ihtml(p["authors"])}</div>')
 
     if show_paper or show_abstract:
         out.append('        <div class="paper-links">')

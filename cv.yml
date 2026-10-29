@@ -96,7 +96,7 @@ site:
           tag: Job Market Paper
           # Shows a "Paper" link. Set enabled: false until the PDF exists.
           paper:
-            enabled: false
+            enabled: true
             url: assets/jmp.pdf
           # Shows an "Abstract" toggle that expands `text` on the page.
           # Give it a url instead and it becomes a plain link to that file.
@@ -307,10 +307,10 @@ cv:
           text: United States of America; Indian OCI cardholder
 
     # Ask your referees before publishing their contact details.
-    # Delete the `enabled: false` line to include this section.
+    # Delete the `enabled: true` line to include this section.
     - heading: References
       kind: references
-      enabled: false
+      enabled: true
       people:
         - name: Inés Moreno de Barreda
           title: Associate Professor of Economics
