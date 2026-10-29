@@ -454,10 +454,6 @@ CSS = """
       color: #111;
     }
 
-    .paper-title a {
-      color: inherit;
-    }
-
     .paper-tag {
       font-size: 0.82rem;
       color: #8B0000;
@@ -583,13 +579,7 @@ def html_paper(p):
     show_abstract = on(abstract) and (abstract.get("url") or abstract.get("text"))
 
     out = ['      <div class="paper">']
-    title = ihtml(p["title"])
-    # With a PDF to show, the title itself opens it as well as the "Paper" link.
-    if show_paper:
-        title = (
-            f'<a href="{esc(paper["url"])}" target="_blank" rel="noopener">{title}</a>'
-        )
-    title = f'<span class="paper-title">{title}</span>'
+    title = f'<span class="paper-title">{ihtml(p["title"])}</span>'
     if p.get("tag"):
         title += f'<span class="paper-tag">&ensp;({esc(p["tag"])})</span>'
     out.append(f"        {title}")
