@@ -105,18 +105,25 @@ site:
             enabled: true
             url:
             text: >-
-              I analyse a dynamic model of persuasion in which a long-lived sender
+              I analyse a dynamic model of persuasion in which a long-lived Sender
               provides information about an evolving state to a sequence of
-              short-lived receivers who make binary decisions in the presence of
-              intertemporal externalities. I allow for conflicts of interest
-              between the sender and receivers, both in the stage-game and via the
-              dynamics of the externalities. I characterise the optimal persuasion
-              under positive and negative externalities. Under positive
-              externalities, the sender's ordinal preferences are sufficient for the
-              static benchmark to be always optimal even in the dynamic game. Under
-              negative externalities, a plethora of policies are optimal depending
-              on the sender's cardinal preferences: the static benchmark, its
-              complete reversal, full disclosure and interior pooling policies.
+              short-lived Receivers who choose between two actions, high and low.
+              In each period, the Sender has a weak ordinal preference for the high
+              action over the low and the good state over the bad, whereas each
+              Receiver wishes to match action to state. Importantly, each
+              Receiver’s action affects the state the next one faces, creating
+              intertemporal externalities: the high action may either improve or
+              worsen the future state. When the high action improves the future
+              state, the Sender’s ordinal preferences alone ensure that the optimal
+              policy maximises the probability of the high action each period. When
+              the high action worsens the future state, the optimal policy depends
+              on the cardinal features of her preferences: how she values current
+              actions relative to the future state. She may then maximise the
+              probability of the high action or the low action, fully reveal the
+              state, or use an intermediate policy that leaves the Receiver
+              uncertain. Beyond *what* the Sender discloses, the optimal policy
+              also determines *when* she discloses, and whether disclosure
+              eventually stops.
 
     - heading: Work in Progress
       kind: papers
