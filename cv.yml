@@ -33,6 +33,9 @@ site:
   # Google Search Console > Add property > URL prefix > HTML tag: paste only the
   # content="..." value here. Leave empty to omit the tag.
   google_site_verification:
+  # Cloudflare dashboard > Web Analytics: the token from the JS snippet.
+  # Leave empty to omit the beacon.
+  cloudflare_analytics_token: 629914bf110d489e84384f8b98cd7d83
   photo: assets/pic.jpg
   # One sentence for Google results and link previews.
   description: >-
