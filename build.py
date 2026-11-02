@@ -730,6 +730,16 @@ def build_html(data, today):
     head_meta = "\n  ".join(meta)
     ld = json_ld(profile, site, desc, today).replace("\n", "\n  ")
 
+    analytics = ""
+    if site.get("cloudflare_analytics_token"):
+        beacon = esc(json.dumps({"token": str(site["cloudflare_analytics_token"])}))
+        analytics = (
+            "\n  <!-- Cloudflare Web Analytics -->"
+            "<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' "
+            f"data-cf-beacon='{beacon}'></script>"
+            "<!-- End Cloudflare Web Analytics -->"
+        )
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -764,7 +774,7 @@ def build_html(data, today):
       btn.setAttribute('aria-expanded', open);
       btn.innerHTML = open ? 'Abstract \\u25BE' : 'Abstract \\u25B8';
     }}
-  </script>
+  </script>{analytics}
 </body>
 </html>
 """
