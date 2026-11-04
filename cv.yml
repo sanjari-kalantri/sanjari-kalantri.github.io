@@ -113,18 +113,18 @@ site:
               short-lived Receivers who choose between two actions, high and low.
               In each period, the Sender has a weak ordinal preference for the high
               action over the low and the good state over the bad, whereas each
-              Receiver wishes to match action to state. Importantly, each
-              Receiver’s action affects the state the next one faces, creating
+              Receiver wants the high action only in the good state. Importantly,
+              each Receiver’s action affects the state the next one faces, creating
               intertemporal externalities: the high action may either improve or
               worsen the future state. When the high action improves the future
               state, the Sender’s ordinal preferences alone ensure that the optimal
-              policy maximises the probability of the high action each period. When
-              the high action worsens the future state, the optimal policy depends
-              on the cardinal features of her preferences: how she values current
-              actions relative to the future state. She may then maximise the
-              probability of the high action or the low action, fully reveal the
-              state, or use an intermediate policy that leaves the Receiver
-              uncertain. Beyond *what* the Sender discloses, the optimal policy
+              policy is the one that induces the high action with maximal
+              probability each period. When the high action worsens the future
+              state, the optimal policy depends on the cardinal features of the
+              Sender’s preferences: it may maximise the probability of the high
+              action or of the low action, fully reveal the state (eliminating any
+              uncertainty), or leave the Receiver uncertain of the state after
+              every disclosure. Beyond *what* the Sender discloses, the optimal policy
               also determines *when* she discloses, and whether disclosure
               eventually stops.
 
