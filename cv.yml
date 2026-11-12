@@ -128,9 +128,6 @@ site:
               also determines *when* she discloses, and whether disclosure
               eventually stops.
 
-    - heading: Work in Progress
-      kind: papers
-      papers:
         - title: Dynamic Cheap Talk with Endogenous States
           paper:
             enabled: true
@@ -154,6 +151,9 @@ site:
               and only if communication is possible in both states, and full
               revelation requires that actions not affect the state.
 
+    - heading: Work in Progress
+      kind: papers
+      papers:
         - title: Moral Hazard with Yaari Preferences
           authors: with Guru Ganeson and Gus Smith
           paper:
