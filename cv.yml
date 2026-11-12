@@ -131,7 +131,7 @@ site:
     - heading: Work in Progress
       kind: papers
       papers:
-        - title: Dynamic Cheap-Talk with Endogenous States
+        - title: Dynamic Cheap Talk with Endogenous States
           paper:
             enabled: false
             url:
@@ -139,18 +139,20 @@ site:
             enabled: true
             url:
             text: >-
-              I analyse a dynamic cheap-talk model in which a long-lived sender
-              provides information about an evolving state to a sequence of
-              short-lived receivers making binary decisions. States evolve
-              endogenously based on the action taken by the receiver. I also assume
-              that there are no conflicts of interest between the sender and the
-              receivers in the stage-game. While a non-informative equilibrium
-              always exists, full revelation is an equilibrium in the stage-game
-              too. I then characterize the equilibria in the dynamic game,
-              depending on the strength and direction of the externalities. In the
-              dynamic game, under moderate externalities, partially revealing
-              equilibria may exist, but the non-informative equilibrium is the
-              unique equilibrium when the externalities are too strong.
+              I study cheap talk between a long-lived Sender and a sequence of
+              short-lived Receivers. The distribution of the Sender’s private
+              information depends on one of two publicly observed states, and each
+              Receiver’s action affects which state occurs next. Stage payoffs are
+              identical, so in a static setting the Sender would truthfully reveal
+              everything a Receiver needs to know. Because only the Sender
+              internalises the effect of today’s action on future states, the
+              Sender becomes endogenously biased towards the action that makes the
+              more valuable state more likely. Communication breaks down only when
+              actions affect future states strongly enough and the bias works
+              against the Receiver’s prior. Communication in one state affects its
+              credibility in the other, the Sender attains the first-best payoff if
+              and only if communication is possible in both states, and full
+              revelation requires that actions not affect the state.
 
         - title: Moral Hazard with Yaari Preferences
           authors: with Guru Ganeson and Gus Smith
@@ -226,7 +228,7 @@ cv:
           text: Information Provision with Intertemporal Externalities
         - label: Working Papers
           items:
-            - Dynamic Cheap-Talk with Endogenous States
+            - Dynamic Cheap Talk with Endogenous States
             - Moral Hazard with Yaari Preferences
 
     - heading: Presentations
