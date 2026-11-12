@@ -133,8 +133,8 @@ site:
       papers:
         - title: Dynamic Cheap Talk with Endogenous States
           paper:
-            enabled: false
-            url:
+            enabled: true
+            url: assets/dct.pdf
           abstract:
             enabled: true
             url:
