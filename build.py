@@ -622,7 +622,7 @@ def org(o):
     return {"@type": "Organization", "name": o["name"], **({"url": o["url"]} if o.get("url") else {})}
 
 
-def json_ld(profile, site, desc, today):
+def json_ld(profile, site, desc, now):
     """schema.org ProfilePage with the Person as mainEntity, for Google's
     profile-page rich results: https://developers.google.com/search/docs/appearance/structured-data/profile-page
     """
@@ -654,7 +654,9 @@ def json_ld(profile, site, desc, today):
         "name": profile["name"],
         "description": desc,
         "inLanguage": "en",
-        "dateModified": today,
+        # Google requires a full ISO 8601 datetime with timezone here; a bare
+        # date fails the Rich Results Test ("Invalid datetime value").
+        "dateModified": now,
         "mainEntity": {k: v for k, v in person.items() if v is not None},
     }
     # Pretty-printed, and "</" escaped so no string can close the <script> early.
@@ -695,7 +697,7 @@ def build_sitemap(site, today):
     )
 
 
-def build_html(data, today):
+def build_html(data, now):
     profile, site = data["profile"], data["site"]
     body = []
     for section in enabled(site.get("sections")):
@@ -745,7 +747,7 @@ def build_html(data, today):
         meta.append(f'<meta property="og:image:alt" content="{esc(profile["name"])}">')
     meta.append('<meta name="twitter:card" content="summary">')
     head_meta = "\n  ".join(meta)
-    ld = json_ld(profile, site, desc, today).replace("\n", "\n  ")
+    ld = json_ld(profile, site, desc, now).replace("\n", "\n  ")
 
     analytics = ""
     if site.get("cloudflare_analytics_token"):
@@ -807,9 +809,11 @@ def main():
         sys.exit("cv.yml is missing site.url (e.g. https://you.github.io/).")
     OUT.mkdir(exist_ok=True)
     stem = data["cv"].get("filename", "cv")
-    today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+    now_dt = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0)
+    now = now_dt.isoformat()          # 2026-11-17T10:30:00+00:00, for JSON-LD
+    today = now_dt.date().isoformat() # 2026-11-17, for sitemap <lastmod>
     (OUT / f"{stem}.tex").write_text(build_tex(data), encoding="utf-8")
-    (OUT / "index.html").write_text(build_html(data, today), encoding="utf-8")
+    (OUT / "index.html").write_text(build_html(data, now), encoding="utf-8")
     (OUT / "robots.txt").write_text(build_robots(data["site"]), encoding="utf-8")
     (OUT / "sitemap.xml").write_text(build_sitemap(data["site"], today), encoding="utf-8")
     # \input{preamble} resolves relative to the .tex, so it has to sit alongside it.
