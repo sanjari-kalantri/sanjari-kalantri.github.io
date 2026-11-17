@@ -45,9 +45,11 @@ site:
   # Facts about you for Google's profile-page structured data (schema.org
   # ProfilePage / Person). Not shown on the page itself.
   person:
-    job_title: DPhil (PhD) Candidate in Economics
+    job_title: DPhil Candidate in Economics
     email: sanjari.kalantri@economics.ox.ac.uk
     affiliation:
+      - name: University of Oxford
+        url: https://www.ox.ac.uk/
       - name: Nuffield College, University of Oxford
         url: https://www.nuffield.ox.ac.uk/
       - name: Department of Economics, University of Oxford
@@ -67,8 +69,15 @@ site:
       - Hindi
     # Other profiles of yours (Google Scholar, LinkedIn, ORCID, SSRN, ...).
     # Google uses these to tie them to this page.
+    # Uncomment a line and fill in the real URL to add it; a placeholder left
+    # in would be published as a broken link, so keep unused ones commented.
     same_as:
       - https://www.linkedin.com/in/sanjari-kalantri-720782168/
+      # - https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID
+      # - https://orcid.org/0000-0000-0000-0000
+      # - https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=YOUR_SSRN_ID
+      # - https://www.economics.ox.ac.uk/people/YOUR_DEPARTMENT_PAGE
+      # - https://econjobmarketcandidates.com/YOUR_PROFILE
 
   # Optional extra lines under the affiliation in the sidebar.
   # Delete the `enabled: false` lines to show them.

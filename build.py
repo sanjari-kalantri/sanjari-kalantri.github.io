@@ -665,8 +665,25 @@ def build_robots(site):
     return f"User-agent: *\nAllow: /\n\nSitemap: {absolute(site, 'sitemap.xml')}\n"
 
 
+def linked_files(site):
+    """Site-relative paper / abstract files linked from the landing page."""
+    out = []
+    for section in enabled(site.get("sections")):
+        for paper in enabled(section.get("papers")):
+            for block in (paper.get("paper"), paper.get("abstract")):
+                if on(block) and block.get("url"):
+                    out.append(block["url"])
+    return out
+
+
 def build_sitemap(site, today):
-    pages = [site["url"], absolute(site, "cv.pdf")]
+    # The landing page, every paper it links (Google indexes PDFs), and the CV.
+    pages = [site["url"]]
+    for ref in linked_files(site) + ["cv.pdf"]:
+        if not re.match(r"[a-z]+:|//", ref):
+            url = absolute(site, ref)
+            if url not in pages:
+                pages.append(url)
     urls = "".join(
         f"  <url>\n    <loc>{esc(p)}</loc>\n    <lastmod>{today}</lastmod>\n  </url>\n"
         for p in pages
@@ -806,11 +823,7 @@ def main():
     # only notice after it is published. Say so now instead.
     photo = data["site"].get("photo")
     wanted = [photo] if photo else []
-    for section in enabled(data["site"].get("sections")):
-        for paper in enabled(section.get("papers")):
-            for block in (paper.get("paper"), paper.get("abstract")):
-                if on(block) and block.get("url"):
-                    wanted.append(block["url"])
+    wanted += linked_files(data["site"])
     for ref in wanted:
         if not re.match(r"[a-z]+:|//", ref) and not (ROOT / ref).exists():
             print(f"  warning: {ref} is linked from index.html but does not exist")
