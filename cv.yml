@@ -73,10 +73,11 @@ site:
     # in would be published as a broken link, so keep unused ones commented.
     same_as:
       - https://www.linkedin.com/in/sanjari-kalantri-720782168/
+      - https://www.nuffield.ox.ac.uk/people/profiles/sanjari-kalantri/
+      - https://www.economics.ox.ac.uk/people/sanjari-kalantri
       # - https://scholar.google.com/citations?user=YOUR_SCHOLAR_ID
       # - https://orcid.org/0000-0000-0000-0000
       # - https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=YOUR_SSRN_ID
-      # - https://www.economics.ox.ac.uk/people/YOUR_DEPARTMENT_PAGE
       # - https://econjobmarketcandidates.com/YOUR_PROFILE
 
   # Optional extra lines under the affiliation in the sidebar.
